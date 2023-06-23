@@ -6,12 +6,18 @@ using UnityEngine;
 public class DelaunatorManager : MonoBehaviour
 {
     public GameObject pointPrefab;
+    public GameObject YellowpointPrefab;
     public DelaunatorPreview preview;
     public GameObject parentOfPoints;
     public Vector2[] Points;
     // Start is called before the first frame update
     void Start()
     {
+        foreach(var point in Points)
+        {
+            Instantiate(YellowpointPrefab, new Vector3(point.x, point.y, 0), Quaternion.identity);
+        }
+
         StartCoroutine(AddRandomPoints());
     }
 
@@ -24,7 +30,7 @@ public class DelaunatorManager : MonoBehaviour
     {
         foreach(var point in Points)
         {
-            Instantiate(pointPrefab, new Vector3(point.x, point.y, 0),Quaternion.identity); 
+            Instantiate(pointPrefab, new Vector3(point.x, point.y, -1),Quaternion.identity); 
             yield return new WaitForSeconds(0.2f);
             preview.AddPont(point);
             yield return new WaitForSeconds(0.5f);
